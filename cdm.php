@@ -42,7 +42,7 @@
                         </div>
                         <div class="mt-4 mb-0">
                                             <div class="text-center">
-                                                <button class="btn btn-primary btn-block">Cadastrar Alimento</button>
+                                                <a class="btn btn-primary btn-block" href="cadAlimento.html">Cadastrar Alimento</a>
                                             </div>
                                         </div>
                     </div>
