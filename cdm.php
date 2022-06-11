@@ -23,6 +23,7 @@
                                 <div class="card-header">
                                     <h3 class="text-center font-weight-light my-4">Calculadora de Macros</h3>
                                 </div>
+<<<<<<< HEAD
 
                                 <div class="card-body">
                                     <div>
@@ -54,6 +55,16 @@
                                                     <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                                 <p>x g / x g</p>
+=======
+                                <div class="col-md-2">
+                                    <button class="btn btn-outline-success" style="width: 106px;" type="submit">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 mb-0">
+                                            <div class="text-center">
+                                                <a class="btn btn-primary btn-block" href="cadAlimento.html">Cadastrar Alimento</a>
+>>>>>>> e3dfa505615d33c584601766c448b89c7ca302c4
                                             </div>
                                         </div>
                                     </div>
