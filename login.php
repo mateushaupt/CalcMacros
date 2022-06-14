@@ -1,33 +1,3 @@
-<?php session_start();
-include_once(__DIR__ . '..\..\..\backend\conecta.php');
-if(isset($_POST['login']))
-  {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    $banco = new Banco;
-    $conn = $banco->conectar();    
-    
-    $stmt = $conn->prepare('SELECT * FROM usuario WHERE email = :email AND senha = :senha');
-    $stmt->execute([
-        ':email' => $email,
-        ':senha' => $password
-        ]
-    );    
-    $ret = $stmt->fetch();
-    
-    if($ret){        
-        $_SESSION['usuario_id']=$ret['usuario_id'];
-        $_SESSION['uemail']=$ret['email'];
-      echo "<script>window.location.href='cdm.php'</script>";
-    }
-    else{
-        echo "<script>alert('Não foi encontrado usuário com o email e senha informados');</script>";
-    }
-  }
-  ?>
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
