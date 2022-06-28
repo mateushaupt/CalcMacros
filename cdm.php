@@ -120,7 +120,7 @@
                                                         </div>
                                                         <div class="mt-4 mb-0">
                                                             <div class="text-center">
-                                                                <a class="btn btn-primary btn-block" href="cadAlimento.html">Cadastrar Alimento</a>
+                                                                <a class="btn btn-primary btn-block" href="cadAlimento.php">Cadastrar Alimento</a>
                                                             </div>
                                                         </div>
                                                     </div>

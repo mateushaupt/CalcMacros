@@ -10,6 +10,7 @@
     <title>Calculadora de Macros</title>
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <?php session_start(); ?>
 </head>
 
 <body class="bg-primary">
@@ -25,7 +26,7 @@
                                 </div>
                                 <h3 class="text-center font-weight-light my-4">Cadastro de Alimento</h3>
                                 <div class="card-body">
-                                    <form method="post" name="registration" action="">
+                                    <form method="post" name="registration" action="inserir.php">
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="nomeAlimento" type="text" name="nomeAlimento"
                                                 placeholder="Insira o Nome do Alimento" required />

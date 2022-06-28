@@ -10,6 +10,7 @@
     <title>Calculadora de Macros</title>
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <?php session_start(); ?>
 </head>
 
 <body class="bg-primary">
@@ -25,7 +26,8 @@
                                 </div>
                                 <h3 class="text-center font-weight-light my-4">Cadastro de Usuário</h3>
                                 <div class="card-body">
-                                    <form method="post" name="registration" action="">
+                                    <form method="post" name="registration" action="inserir.php">
+                                        <input type="hidden" value="1" name="registro" id="registro">
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="nome" type="text" name="nome"
                                                 placeholder="Insira seu Nome" required />
@@ -56,17 +58,17 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="number" class="form-control" id="idade" required
+                                                    <input type="number" class="form-control" id="idade" name="idade" required
                                                         placeholder="Insira sua Idade">
                                                     <label for="idade">Idade</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <select class="form-select">
+                                                    <select class="form-select" name="sexo">
                                                         <option selected>Selecione</option>
-                                                        <option value="Masculino">Masculino</option>
-                                                        <option value="Feminino">Feminino</option>
+                                                        <option value="Masculino" name="sexo">Masculino</option>
+                                                        <option value="Feminino" name="sexo">Feminino</option>
                                                     </select>
                                                     <label for="sexo" class="form-label">Sexo</label>
                                                 </div>
@@ -75,14 +77,14 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="number" class="form-control" id="altura" required
+                                                    <input type="number" class="form-control" id="altura" name="altura" required
                                                         placeholder="Insira sua Altura">
                                                     <label for="altura" class="form-label">Altura (em cm)</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="number" class="form-control" id="peso" required
+                                                    <input type="number" class="form-control" id="peso" name="peso" required
                                                         placeholder="Insira seu Peso">
                                                     <label for="peso" class="form-label">Peso (em kg)</label>
                                                 </div>
@@ -93,19 +95,19 @@
                                         <div class="row mb-3 justify-content-md-center">
                                             <div class="col-md-auto">
                                                 <div class="form-check form-check-inline mb-3">
-                                                    <input class="form-check-input" type="radio" name="objetivo" id="exampleRadio1" value="option1">
+                                                    <input class="form-check-input" type="radio" name="objetivo" id="exampleRadio1" value="pPeso">
                                                     <label class="form-check-label" for="inlineRadio1">Perder Peso</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-auto">
                                                 <div class="form-check form-check-inline mb-3">
-                                                    <input class="form-check-input" type="radio" name="objetivo" id="exampleRadios2" value="option2">
+                                                    <input class="form-check-input" type="radio" name="objetivo" id="exampleRadios2" value="mPeso">
                                                     <label class="form-check-label" for="exampleRadios2">Manter Peso</labels>
                                                 </div>
                                             </div>
                                             <div class="col-md-auto">
                                                 <div class="form-check form-check-inline mb-3">
-                                                    <input class="form-check-input" type="radio" name="objetivo" id="exampleRadios3" value="option3">
+                                                    <input class="form-check-input" type="radio" name="objetivo" id="exampleRadios3" value="gPeso">
                                                     <label class="form-check-label" for="exampleRadios2">Ganhar Peso</label>
                                                 </div>
                                             </div>
@@ -115,19 +117,19 @@
                                         <div class="row mb-4 justify-content-md-center">
                                             <div class="col-md-auto">
                                                 <div class="form-check form-check-inline mb-4">
-                                                    <input class="form-check-input" type="radio" name="atvfisica" id="exampleRadio1" value="option1">
+                                                    <input class="form-check-input" type="radio" name="atvfisica" id="exampleRadio1" value="sedentario">
                                                     <label class="form-check-label" for="inlineRadio1">Sedentário</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-auto">
                                                 <div class="form-check form-check-inline mb-4">
-                                                    <input class="form-check-input" type="radio" name="atvfisica" id="exampleRadios2" value="option2">
+                                                    <input class="form-check-input" type="radio" name="atvfisica" id="exampleRadios2" value="intermediario">
                                                     <label class="form-check-label" for="exampleRadios2">Intermediário</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-auto">
                                                 <div class="form-check form-check-inline mb-4">
-                                                    <input class="form-check-input" type="radio" name="atvfisica" id="exampleRadios3" value="option3">
+                                                    <input class="form-check-input" type="radio" name="atvfisica" id="exampleRadios3" value="avancado">
                                                     <label class="form-check-label" for="exampleRadios2">Avançado</label>
                                                 </div>
                                             </div>
@@ -135,7 +137,7 @@
                                         <div class="mt-4 mb-0">
                                             <div class="d-grid">
                                                 <button type="submit" name="submit"
-                                                    class="btn btn-primary btn-block" >Criar Conta</button>
+                                                    class="btn btn-primary btn-block">Criar Conta</button>
                                             </div>
                                         </div>
                                     </form>

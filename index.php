@@ -28,7 +28,7 @@
                                         <h4 class="mt-1 mb-4 pb-1">Seja Bem Vindo!</h4>
                                     </div>
                                     <div >
-                                        <a type="button" class="btn btn-primary col-md-12 mb-4" href="cadastro.html">Novo no site? Cadastre-se!</a>
+                                        <a type="button" class="btn btn-primary col-md-12 mb-4" href="cadastro.php">Novo no site? Cadastre-se!</a>
                                     </div>
                                     <div>
                                     <a type="button" class="btn btn-primary col-md-12 mb-4" href="login.php">Já possui uma conta? Faça o Login</a>
@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 d-flex align-items-center" style="background-color: rgba(0, 0, 0, 0.03);
-                                border-left: 1px solid rgba(0, 0, 0, 0.125);">
+                                border-left: 1px solid rgba(0, 0, 0, 0.125); border-top: 1px solid rgba(0, 0, 0, 0.125);">
                                 <div class="text px-3 py-4 p-md-5 mx-md-4">
                                     <h4 class="mb-4 mt-1">Calculadora de Macros</h4>
                                     <p class="small mb-0">Nosso objetivo é te ajudar a encontrar e organizar a quantidade de macronutrientes necessários
