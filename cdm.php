@@ -7,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 
@@ -30,7 +28,7 @@
                                             <p>Meta diária: x Kcal</p>
                                         </div>
                                         <div class="col">
-                                            <a href="usuario.php" class="icon-block float-right">
+                                            <a href="usuario.php" class="icon-block" style="float: right;">
                                                 <i class="fa fa-cog fa-2xl" aria-hidden="true"></i>
                                             </a>
                                         </div>
@@ -87,7 +85,7 @@
                                                 </div>
                                             </div>
                                             <div class="container">
-                                                        <button type="button" class="btn btn-primary float-right">Editar Refeição</button>
+                                                        <button type="button" class="btn btn-primary" style="float: right;">Editar Refeição</button>
                                             </div>
                                         </div>
                                     </div>

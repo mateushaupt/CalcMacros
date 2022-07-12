@@ -86,7 +86,7 @@
                                         </div>
                                         <div class="mt-4 mb-0">
                                             <div class="d-grid">
-                                                <button type="submit" name="submit" class="btn btn-primary btn-block">Salvar alterações</button>
+                                                <button type="submit" name="submit" class="btn btn-primary btn-block mb-2">Salvar alterações</button>
                                             </div>
                                             <div class="d-grid">
                                                 <a href="cdm.php" class="btn btn-secondary">Voltar</a>
