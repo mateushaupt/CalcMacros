@@ -35,7 +35,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="number" class="form-control" id="peso" required placeholder="Insira seu Peso" value="65.5">
+                                                    <input type="number" class="form-control" id="peso" required placeholder="Insira seu Peso" value="70">
                                                     <label for="peso" class="form-label">Peso (em kg)</label>
                                                 </div>
                                             </div>
