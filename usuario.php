@@ -8,6 +8,7 @@
     <title>Calculadora de Macros</title>
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <?php session_start(); ?>
 </head>
 
 <body class="bg-primary">
@@ -25,7 +26,7 @@
                                     <div>
                                         <h4 class="font-weight-light my-4">Editar Informações</h4>
                                     </div>
-                                    <form method="get" name="registration" action="">
+                                    <form method="get" name="registration" action="alterar.php">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
