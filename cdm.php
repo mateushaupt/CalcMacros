@@ -103,6 +103,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
+                                                        <form action="">
                                                         <div class="form-floating mb-3">
                                                             <input class="form-control" id="nomeRef" type="text" name="nomeRef" placeholder="Insira o Nome da Refeição" required />
                                                             <label for="nomeRef">Nome da Refeição</label>
@@ -126,6 +127,7 @@
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                         <button type="button" class="btn btn-primary">Salvar</button>
                                                     </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
