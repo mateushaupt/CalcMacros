@@ -14,6 +14,10 @@ CREATE TABLE IF NOT EXISTS usuario (usuario_id INT NOT NULL AUTO_INCREMENT,
                                     peso DECIMAL(10,2) NOT NULL,
                                     objetivo VARCHAR(100) NOT NULL,
                                     atvfisica VARCHAR(100) NOT NULL,
+                                    caloria INT NOT NULL,
+                                    proteina INT NOT NULL,
+                                    carboidrato INT NOT NULL,
+                                    gordura INT NOT NULL,
                                     PRIMARY KEY (usuario_id));
 
 INSERT INTO USUARIO VALUES (1, 'Francisco Cleber', 'vrido', 'megafrancisco@gmail.com', 18, 'masculino', 175, 70, 'gPeso', 'avancado');

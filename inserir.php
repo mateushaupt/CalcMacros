@@ -23,9 +23,34 @@ switch ($dados['registro']) {
         $query->execute([
             ':email' => $dados['email']           
         ]);
-        // Se houver um item com esse nome no banco, ele não insere
+        
+        if($dados['sexo'] == 'masculino'){
+            $caloria = (($dados['peso']*10)+($dados['altura']*6.25)-(5*$dados['idade'])+5)*$dados['atvfisica'];
+        }else{
+            $caloria = (($dados['peso']*10)+($dados['altura']*6.25)-(5*$dados['idade'])-161)*$dados['atvfisica'];
+        }
+        $lbs = $dados['peso']*2.2;
+        if($dados['objetivo'] == 'gPeso'){
+            $calorias = $caloria-500;
+            $proteina = ($lbs * .8);
+            $gordura = ($lbs * .35);
+            $carboidrato = ($calorias-($proteina*4)-($gordura*9))/4;
+        }else if ($dados['objetivo'] == 'gPeso') {
+            // Muscle gain
+          $calorias = $caloria+250;
+          $proteina = ($lbs * 1.5);
+          $gordura = ($cals * .7)/9;
+          $carboidrato = ($calorias-($proteina*4)-($gordura*9))/8;
+        } else {
+            // mainteance 
+          $proteina = ($lbs * .9);
+          $gordura = ($lbs * .40);
+          $carboidrato = ($calorias-($protein*4)-($gordura*9))/4;
+        }
+
+// Se houver um item com esse nome no banco, ele não insere
         if($query->fetch(PDO::FETCH_ASSOC) == null){
-            $query = $conn->prepare('INSERT INTO usuario (nome, senha, email, idade, sexo, altura, peso, objetivo, atvfisica) VALUES (:nome, :senha, :email, :idade, :sexo, :altura, :peso, :objetivo, :atvfisica);');
+            $query = $conn->prepare('INSERT INTO usuario (nome, senha, email, idade, sexo, altura, peso, objetivo, atvfisica, caloria, proteina, carboidrato, gordura) VALUES (:nome, :senha, :email, :idade, :sexo, :altura, :peso, :objetivo, :atvfisica, :caloria, :proteina, :carboidrato, :gordura);');
         $query->execute([
             ':nome' => $dados['nome'],
             ':senha' => $dados['senha'],
@@ -35,7 +60,11 @@ switch ($dados['registro']) {
             ':altura' => $dados['altura'],
             ':peso' => $dados['peso'],
             ':objetivo' => $dados['objetivo'],
-            ':atvfisica' => $dados['atvfisica']
+            ':atvfisica' => $dados['atvfisica'],
+            ':caloria' => $caloria,
+            ':proteina' => $proteina,
+            ':carboidrato' => $carboidrato,
+            ':gordura' => $gordura
         ]);
         header('location: login.php');
         

@@ -2,7 +2,11 @@
 include_once('conecta.php');
 $dados = $_POST;
 $banco = new Banco;
-$conn = $banco->conectar();
+try{
+    $conn = $banco->conectar();
+} catch(PDOException $e){
+    echo 'Falha ao salvar os dados. Favor, tente mais tarde.';
+}
 
 // dependendo do valor que vier em registro, nós inserimos em uma tabela diferente
 // 1 = ingrediente
@@ -12,14 +16,42 @@ $conn = $banco->conectar();
 
 switch ($dados['registro']) {
     case 1:
-        $query = $conn->prepare(' UPDATE usuario SET altura = :altura, objetivo = :objetivo, atvfisica = :atvfisica   WHERE usuario_id = :id ;');        
+        if($dados['sexo'] == 'masculino'){
+            $caloria = (($dados['peso']*10)+($dados['altura']*6.25)-(5*$dados['idade'])+5)*$dados['atvfisica'];
+        }else{
+            $caloria = (($dados['peso']*10)+($dados['altura']*6.25)-(5*$dados['idade'])-161)*$dados['atvfisica'];
+        }
+        $lbs = $dados['peso']*2.2;
+        if($dados['objetivo'] == 'gPeso'){
+            $calorias = $caloria-500;
+            $proteina = ($lbs * .8);
+            $gordura = ($lbs * .35);
+            $carboidrato = ($calorias-($proteina*4)-($gordura*9))/4;
+        }else if ($dados['objetivo'] == 'gPeso') {
+            // Muscle gain
+          $calorias = $caloria+250;
+          $proteina = ($lbs * 1.5);
+          $gordura = ($cals * .7)/9;
+          $carboidrato = ($calorias-($proteina*4)-($gordura*9))/8;
+        } else {
+            // mainteance 
+          $proteina = ($lbs * .9);
+          $gordura = ($lbs * .40);
+          $carboidrato = ($calorias-($protein*4)-($gordura*9))/4;
+        }
+        $query = $conn->prepare('UPDATE usuario SET altura = :altura, peso = :peso, objetivo = :objetivo, atvfisica = :atvfisica, caloria = :caloria, proteina = :proteina, carboidrato = :carboidrato, gordura = :gordura WHERE usuario_id = :usuario_id ;');        
         $query->execute([
-            ':id' => $dados['usuario_id'],
+            ':usuario_id' => $dados['usuario_id'],
             ':altura' => $dados['altura'],
+            ':peso' => $dados['peso'],
             ':objetivo' => $dados['objetivo'],
-            ':atvfisica' => $dados['atvfisica']
+            ':atvfisica' => $dados['atvfisica'],
+            ':caloria' => $caloria,
+            ':proteina' => $proteina,
+            ':carboidrato' => $carboidrato,
+            ':gordura' => $gordura
         ]);
-        header('location:..\cdm.php');
+        header('location: cdm.php');
         break;
         
             

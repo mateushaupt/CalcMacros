@@ -1,3 +1,7 @@
+<?php 
+session_start(); 
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -10,7 +14,6 @@
     <title>Calculadora de Macros</title>
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-    <?php session_start(); ?>
 </head>
 
 <body class="bg-primary">
@@ -26,7 +29,7 @@
                                 </div>
                                 <h3 class="text-center font-weight-light my-4">Cadastro de Usuário</h3>
                                 <div class="card-body">
-                                    <form method="post" name="registration" action="inserir.php">
+                                    <form method="post" name="registration" id="cadastro" action="inserir.php">
                                         <input type="hidden" value="1" name="registro" id="registro">
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="nome" type="text" name="nome"
@@ -65,10 +68,10 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <select class="form-select" name="sexo">
+                                                    <select class="form-select" name="sexo" id="sexo">
                                                         <option selected>Selecione</option>
-                                                        <option value="Masculino" name="sexo">Masculino</option>
-                                                        <option value="Feminino" name="sexo">Feminino</option>
+                                                        <option value="masculino" name="sexo">Masculino</option>
+                                                        <option value="feminino" name="sexo">Feminino</option>
                                                     </select>
                                                     <label for="sexo" class="form-label">Sexo</label>
                                                 </div>
@@ -117,27 +120,26 @@
                                         <div class="row mb-4 justify-content-md-center">
                                             <div class="col-md-auto">
                                                 <div class="form-check form-check-inline mb-4">
-                                                    <input class="form-check-input" type="radio" name="atvfisica" id="exampleRadio1" value="sedentario">
+                                                    <input class="form-check-input" type="radio" name="atvfisica" id="exampleRadio1" value="1.2">
                                                     <label class="form-check-label" for="inlineRadio1">Sedentário</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-auto">
                                                 <div class="form-check form-check-inline mb-4">
-                                                    <input class="form-check-input" type="radio" name="atvfisica" id="exampleRadios2" value="intermediario">
+                                                    <input class="form-check-input" type="radio" name="atvfisica" id="exampleRadios2" value="1.475">
                                                     <label class="form-check-label" for="exampleRadios2">Intermediário</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-auto">
                                                 <div class="form-check form-check-inline mb-4">
-                                                    <input class="form-check-input" type="radio" name="atvfisica" id="exampleRadios3" value="avancado">
+                                                    <input class="form-check-input" type="radio" name="atvfisica" id="exampleRadios3" value="1.725">
                                                     <label class="form-check-label" for="exampleRadios2">Avançado</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="mt-4 mb-0">
                                             <div class="d-grid">
-                                                <button type="submit" name="submit"
-                                                    class="btn btn-primary btn-block">Criar Conta</button>
+                                                <button type="submit" name="submit" class="btn btn-primary btn-block">Criar Conta</button>
                                             </div>
                                         </div>
                                     </form>
@@ -154,9 +156,10 @@
             </main>
         </div>
     </div>
+    <script src="js/scripts.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
+    
 </body>
 
 </html>
