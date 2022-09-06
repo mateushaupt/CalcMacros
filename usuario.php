@@ -14,6 +14,8 @@ if (strlen($_SESSION["usuario_id"]) == 0) {
         ]
     );
     $ret = $stmt->fetch();
+
+    
 ?>
 
 <!DOCTYPE html>

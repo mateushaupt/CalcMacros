@@ -77,6 +77,60 @@ switch ($dados['registro']) {
         die("<script>alert('As senhas nâo coincidem');</script>");
     }
     
+    case 2:
+        $query = $conn->prepare('SELECT * FROM alimento WHERE nome = :nome');
+        $query->execute([
+            ':nome' => $dados['nome']           
+        ]);
+        // Se houver um ingrediente com esse nome no banco, ele não insere
+        if($query->fetch(PDO::FETCH_ASSOC) == null){
+            $query = $conn->prepare('INSERT INTO alimento (nome, porcao, unidade_medida, caloria, proteina, carboidrato, gordura) VALUES (:nome, :porcao, :unidade_medida, :caloria, :proteina, :carboidrato, :gordura);');
+            $query->execute([
+                ':nome' => $dados['nome'],
+                ':porcao' => $dados['porcao'],
+                ':unidade_medida' => $dados['unidade_medida'],
+                ':caloria' => $dados['caloria'],
+                ':proteina' => $dados['proteina'],
+                ':carboidrato' => $dados['carboidrato'],
+                ':gordura' => $dados['gordura']
+            ]);
+            
+            header('location: cdm.php');
+        } else{
+            // Por enquanto só morre, depois mostrar de forma mais amigável para o usuário
+            die('Já existe um ingrediente com o mesmo nome cadastrado');
+        }
+        break;
+
+        case 3:
+            $query = $conn->prepare('SELECT * FROM refeicao WHERE  nome = :nome');
+        $query->execute([
+            ':nome' => $dados['nome']           
+        ]);
+
+        // Se houver um item com esse nome no banco, ele não insere
+        if($query->fetch(PDO::FETCH_ASSOC) == null){
+            $query = $conn->prepare('INSERT INTO refeicao (nome) VALUES (:nome);');
+            $query->execute([
+                ':nome' => $dados['nome']
+            ]);
+            
+            $refeicao_id = pegaUltimoId($conn);
+
+            foreach($dados['alimentos'] as $alimento){
+                $query = $conn->prepare('INSERT INTO alimento_refeicao (alimento_id, refeicao_id) VALUES (:alimento_id, :refeicao_id);');
+                
+                $query->execute([
+                    ':alimento_id' => $alimento,
+                    ':refeicao_id' => $refeicao_id[0]
+                ]);
+            header('location: cdm.php');
+        }
+        } else{
+            // Por enquanto só morre, depois mostrar de forma mais amigável para o usuário
+            die('Já existe um prato com o mesmo nome cadastrado');
+        }
+        break;
 }
 
 function pegaUltimoId($conexao){

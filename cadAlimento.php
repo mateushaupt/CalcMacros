@@ -27,10 +27,11 @@
                                 <h3 class="text-center font-weight-light my-4">Cadastro de Alimento</h3>
                                 <div class="card-body">
                                     <form method="post" name="registration" action="inserir.php">
+                                        <input type="hidden" value="2" name="registro" id="registro">
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="nomeAlimento" type="text" name="nomeAlimento"
+                                            <input class="form-control" id="nome" type="text" name="nome"
                                                 placeholder="Insira o Nome do Alimento" required />
-                                            <label for="nomeAlimento">Nome do Alimento</label>
+                                            <label for="nome">Nome do Alimento</label>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
@@ -42,14 +43,14 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <select class="form-select">
+                                                    <select class="form-select" name="unidade_medida" id="unidade_medida">
                                                         <option selected>Selecione</option>
                                                         <option value="g">Grama</option>
                                                         <option value="kg">Quilo</option>
                                                         <option value="ml">Mililitro</option>
                                                         <option value="l">Litro</option>
                                                     </select>
-                                                    <label for="genero" class="form-label">Unidade de medida</label>
+                                                    <label for="unidade_medida" class="form-label">Unidade de medida</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -57,14 +58,14 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="number" class="form-control" id="carb" required
+                                                    <input type="number" class="form-control" id="carboidrato" name="carboidrato" required
                                                         placeholder="Carboidrato">
                                                     <label for="carboidrato">Carboidratos</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="number" class="form-control" id="prot" required
+                                                    <input type="number" class="form-control" id="proteina" name="proteina" required
                                                         placeholder="Proteina">
                                                     <label for="carboidrato">Proteínas</label>
                                                 </div>
@@ -73,71 +74,18 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="number" class="form-control" id="gordTotal" required
+                                                    <input type="number" class="form-control" name="gordura" id="gordura" required
                                                         placeholder="Gordura Total">
-                                                    <label for="gordTotal">Gorduras Totais</label>
+                                                    <label for="gordTotal">Gorduras</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="number" class="form-control" id="gordSaturada" required
-                                                        placeholder="Gordura Saturada">
-                                                    <label for="gordSaturada">Gorduras Saturadas</label>
+                                                <div class="form-floating mb-3">
+                                                    <input class="form-control" id="caloria" type="text" name="caloria"
+                                                       placeholder="Calorias" required />
+                                                    <label for="caloria">Calorias</label>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="number" class="form-control" id="gordTrans" required
-                                                        placeholder="Gordura Trans">
-                                                    <label for="gordTrans">Gorduras Trans</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="number" class="form-control" id="fibra"
-                                                        placeholder="fibra">
-                                                    <label for="fibra">Fibra</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="number" class="form-control" id="acucar"
-                                                        placeholder="Açucar">
-                                                    <label for="acucar">Açúcar</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="number" class="form-control" id="sodio"
-                                                        placeholder="sodio">
-                                                    <label for="sodio">Sódio</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="number" class="form-control" id="calcio"
-                                                        placeholder="calcio">
-                                                    <label for="calcio">Cálcio</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="number" class="form-control" id="ferro"
-                                                        placeholder="ferro">
-                                                    <label for="ferro">Ferro</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input class="form-control" id="caloria" type="text" name="caloria"
-                                                placeholder="caloria" required />
-                                            <label for="caloria">Calorias</label>
                                         </div>
                                         <div class="mt-4 mb-0">
                                             <div class="d-grid">
