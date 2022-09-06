@@ -1,20 +1,22 @@
 <?php session_start();
 error_reporting(0);
 include_once(__DIR__ . '/conecta.php');
-if (strlen($_SESSION["usuario_id"]) == 0) {
+if (strlen($_SESSION['usuario_id']) == 0) {
     header('location:logout.php');
 } else {
     $banco = new Banco;
     $conn = $banco->conectar();    
     
-    $stmt = $conn->prepare('SELECT caloria, proteina, carboidrato, gordura FROM usuario WHERE usuario_id = :usuario_id');
+    $stmt = $conn->prepare('SELECT calorias, proteinas, carboidratos, gorduras FROM usuario WHERE usuario_id = :usuario_id');
     $stmt->execute([
-        ':usuario_id' => $_SESSION["usuario_id"]
+        ':usuario_id' => $_SESSION['usuario_id']
         ]
     );
     $ret = $stmt->fetch();
 
     $pesquisa = 1;
+    
+    $usuario = $_SESSION['usuario_id'];
     
     $query = $conn->prepare('SELECT refeicao.nome as nome_da_refeicao, GROUP_CONCAT(alimento.nome SEPARATOR ", ") 
             as alimentos, 
@@ -23,8 +25,11 @@ if (strlen($_SESSION["usuario_id"]) == 0) {
             SUM(CASE WHEN alimento_refeicao.refeicao_id = alimento_refeicao.refeicao_id THEN carboidrato ELSE 0 END) as carboidratos_total,
             SUM(CASE WHEN alimento_refeicao.refeicao_id = alimento_refeicao.refeicao_id THEN gordura ELSE 0 END) as gorduras_total
             from alimento_refeicao INNER JOIN refeicao on alimento_refeicao.refeicao_id = refeicao.refeicao_id 
-            INNER JOIN alimento on alimento_refeicao.alimento_id = alimento.alimento_id');
-    $query->execute();
+            INNER JOIN alimento on alimento_refeicao.alimento_id = alimento.alimento_id INNER JOIN usuario on alimento_refeicao.usuario_id = usuario.usuario_id
+            WHERE usuario.usuario_id = :usuario_id');
+    $query->execute([
+        ':usuario_id' => $usuario
+    ]);
 
     $sear = $query->fetch();
     
@@ -59,7 +64,7 @@ if (strlen($_SESSION["usuario_id"]) == 0) {
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <p class="kcaldiaria">Meta diária: <?php echo htmlentities($ret['caloria'])?> Kcal</p>
+                                            <p class="kcaldiaria">Meta diária: <?php echo htmlentities($ret['calorias'])?> Kcal</p>
                                             <p>Consumidas: <?php echo htmlentities($sear[2])?> Kcal</p>
                                         </div>
                                         <div class="col">
@@ -76,15 +81,15 @@ if (strlen($_SESSION["usuario_id"]) == 0) {
                                         <div class="row">
                                             <div class="col">
                                                 <p>Carboidrato:</p>
-                                                <p class="carbdiaria"><?php echo htmlentities($sear[4])?>g Consumidas de <?php echo htmlentities($ret['carboidrato'])?>g Necessárias</p>
+                                                <p class="carbdiaria"><?php echo htmlentities($sear[4])?>g Consumidas de <?php echo htmlentities($ret['carboidratos'])?>g Necessárias</p>
                                             </div>
                                             <div class="col">
                                                 <p>Proteínas:</p>
-                                                <p class="protdiaria"><?php echo htmlentities($sear[3])?>g Consumidas de <?php echo htmlentities($ret['proteina'])?>g Necessárias</p>
+                                                <p class="protdiaria"><?php echo htmlentities($sear[3])?>g Consumidas de <?php echo htmlentities($ret['proteinas'])?>g Necessárias</p>
                                             </div>
                                             <div class="col">
                                                 <p>Gordura:</p>
-                                                <p class="gorddiaria"><?php echo htmlentities($sear[5])?>g Consumidas de <?php echo htmlentities($ret['gordura'])?>g Necessárias</p>
+                                                <p class="gorddiaria"><?php echo htmlentities($sear[5])?>g Consumidas de <?php echo htmlentities($ret['gorduras'])?>g Necessárias</p>
                                             </div>
                                         </div>
                                     </div>
@@ -127,7 +132,50 @@ if (strlen($_SESSION["usuario_id"]) == 0) {
                                                         <button type="submit" name="submit" class="btn btn-danger ms-2" style="float: right;" >Excluir Refeição</button>
                                                         </form>
                 
-                                                        <button type="button" class="btn btn-primary" style="float: right;">Editar Refeição</button>
+                                                        <button type="button" class="btn btn-primary" style="float: right;" data-bs-toggle="modal" data-bs-target="#ModalEditar">Editar Refeição</button>
+                                                        <div class="container">
+                                        <div class="modal fade" id="ModalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Editar Refeição</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="post" name="registration" action="alterar.php">
+                                                        <input type="hidden" value="2" name="registro" id="registro">
+                                                        <input type="hidden" value="<?=$_SESSION["usuario_id"]?>" name="usuario_id" id="usuario_id">
+                                                        <div class="mb-3">
+                                                            <button type="submit" name="submit" class="btn btn-primary">Salvar</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                            <a class="btn btn-success btn-block" href="cadAlimento.php">Cadastrar Alimento</a>
+                                                        </div>
+                                                        <div class="form-floating mb-3">
+                                                            <input class="form-control" id="nome" type="text" name="nome" value="<?php echo htmlentities($alimentos[$a]["nome_da_refeicao"]); ?>" placeholder="Insira o Nome da Refeição" required />
+                                                            <label for="nome">Nome da Refeição</label>
+                                                        </div>
+                                                        <div class="col-6"><h5>Alimentos da Refeição:</h5></div>
+                                                            <div>
+                                                                <div class="input-group col-12">
+                                                                    <div class="form-outline col-6 mb-3">
+                                                                        <input id="search-focus" type="search" id="form1" class="form-control" onkeyup="pesquisar()" placeholder="Pesquisar" />
+                                                                    </div>
+                                                                </div>
+                                                        <div class="input-group">
+                                                            <div class="col-8">
+                                                                <?php include('includes/alimentos.php'); ?>
+
+
+                                                            </div>
+                                                        </div>
+                                                            </div>
+                                                    </div>
+                                                    
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                             </div>
                                         </div>
                                     </div>
@@ -143,6 +191,7 @@ if (strlen($_SESSION["usuario_id"]) == 0) {
                                                     <div class="modal-body">
                                                         <form method="post" name="registration" action="inserir.php">
                                                         <input type="hidden" value="3" name="registro" id="registro">
+                                                        <input type="hidden" value="<?=$_SESSION["usuario_id"]?>" name="usuario_id" id="usuario_id">
                                                         <div class="mb-3">
                                                             <button type="submit" name="submit" class="btn btn-primary">Salvar</button>
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -161,7 +210,7 @@ if (strlen($_SESSION["usuario_id"]) == 0) {
                                                                 </div>
                                                         <div class="input-group">
                                                             <div class="col-8">
-                                                                <?php include_once('includes/alimentos.php'); ?>
+                                                                <?php include('includes/alimentos.php'); ?>
                                                             </div>
                                                         </div>
                                                             </div>

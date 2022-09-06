@@ -50,7 +50,7 @@ switch ($dados['registro']) {
 
 // Se houver um item com esse nome no banco, ele não insere
         if($query->fetch(PDO::FETCH_ASSOC) == null){
-            $query = $conn->prepare('INSERT INTO usuario (nome, senha, email, idade, sexo, altura, peso, objetivo, atvfisica, caloria, proteina, carboidrato, gordura) VALUES (:nome, :senha, :email, :idade, :sexo, :altura, :peso, :objetivo, :atvfisica, :caloria, :proteina, :carboidrato, :gordura);');
+            $query = $conn->prepare('INSERT INTO usuario (nome, senha, email, idade, sexo, altura, peso, objetivo, atvfisica, calorias, proteinas, carboidratos, gorduras) VALUES (:nome, :senha, :email, :idade, :sexo, :altura, :peso, :objetivo, :atvfisica, :caloria, :proteina, :carboidrato, :gordura);');
         $query->execute([
             ':nome' => $dados['nome'],
             ':senha' => $dados['senha'],
@@ -118,11 +118,12 @@ switch ($dados['registro']) {
             $refeicao_id = pegaUltimoId($conn);
 
             foreach($dados['alimentos'] as $alimento){
-                $query = $conn->prepare('INSERT INTO alimento_refeicao (alimento_id, refeicao_id) VALUES (:alimento_id, :refeicao_id);');
+                $query = $conn->prepare('INSERT INTO alimento_refeicao (alimento_id, refeicao_id, usuario_id) VALUES (:alimento_id, :refeicao_id, :usuario_id);');
                 
                 $query->execute([
                     ':alimento_id' => $alimento,
-                    ':refeicao_id' => $refeicao_id[0]
+                    ':refeicao_id' => $refeicao_id[0],
+                    ':usuario_id' => $dados['usuario_id']
                 ]);
             header('location: cdm.php');
         }

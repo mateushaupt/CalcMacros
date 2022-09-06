@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "babel-preset-react": "^6.24.1",
-    "react-select": "^5.4.0"
-  }
-}

@@ -15,11 +15,10 @@ CREATE TABLE IF NOT EXISTS usuario (
     peso DECIMAL(10,2) NOT NULL,
     objetivo VARCHAR(100) NOT NULL,
     atvfisica VARCHAR(100) NOT NULL,
-    caloria INT NOT NULL,
-    proteina INT NOT NULL,
-    carboidrato INT NOT NULL,
-    gordura INT NOT NULL,
-    refeicao_id INT NOT  NULL,
+    calorias INT NOT NULL,
+    proteinas INT NOT NULL,
+    carboidratos INT NOT NULL,
+    gorduras INT NOT NULL,
     PRIMARY KEY (usuario_id)
 );
 
@@ -45,7 +44,9 @@ CREATE TABLE IF NOT EXISTS alimento_refeicao(
     alimento__refeicao_id INT NOT NULL AUTO_INCREMENT,
     refeicao_id INT NOT NULL,
     alimento_id INT NOT NULL,
+    usuario_id  INT NOT NULL,
     PRIMARY KEY (alimento__refeicao_id),
     FOREIGN KEY (refeicao_id) REFERENCES refeicao(refeicao_id) ON DELETE CASCADE,
-    FOREIGN KEY (alimento_id) REFERENCES alimento(alimento_id) ON DELETE CASCADE
+    FOREIGN KEY (alimento_id) REFERENCES alimento(alimento_id) ON DELETE CASCADE,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id) ON DELETE CASCADE
 );
