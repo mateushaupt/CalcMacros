@@ -16,10 +16,17 @@ try{
 
 switch ($dados['registro']) {
     case 1:
-        if($dados['sexo'] == 'masculino'){
-            $caloria = (($dados['peso']*10)+($dados['altura']*6.25)-(5*$dados['idade'])+5)*$dados['atvfisica'];
+        $query = $conn->prepare('SELECT sexo, idade FROM usuario WHERE  usuario_id = :usuario_id');
+        $query->execute([
+            ':usuario_id' => $dados['usuario_id']           
+        ]);
+        $busca = $query->fetch();
+
+
+        if($busca['sexo'] == 'masculino'){
+            $caloria = (($dados['peso']*10)+($dados['altura']*6.25)-(5*$busca['idade'])+5)*$dados['atvfisica'];
         }else{
-            $caloria = (($dados['peso']*10)+($dados['altura']*6.25)-(5*$dados['idade'])-161)*$dados['atvfisica'];
+            $caloria = (($dados['peso']*10)+($dados['altura']*6.25)-(5*$busca['idade'])-161)*$dados['atvfisica'];
         }
         $lbs = $dados['peso']*2.2;
         if($dados['objetivo'] == 'gPeso'){
@@ -37,9 +44,9 @@ switch ($dados['registro']) {
             // mainteance 
           $proteina = ($lbs * .9);
           $gordura = ($lbs * .40);
-          $carboidrato = ($calorias-($protein*4)-($gordura*9))/4;
+          $carboidrato = ($calorias-($proteina*4)-($gordura*9))/4;
         }
-        $query = $conn->prepare('UPDATE usuario SET altura = :altura, peso = :peso, objetivo = :objetivo, atvfisica = :atvfisica, caloria = :caloria, proteina = :proteina, carboidrato = :carboidrato, gordura = :gordura WHERE usuario_id = :usuario_id ;');        
+        $query = $conn->prepare('UPDATE usuario SET altura = :altura, peso = :peso, objetivo = :objetivo, atvfisica = :atvfisica, calorias = :caloria, proteinas = :proteina, carboidratos = :carboidrato, gorduras = :gordura WHERE usuario_id = :usuario_id ;');        
         $query->execute([
             ':usuario_id' => $dados['usuario_id'],
             ':altura' => $dados['altura'],
